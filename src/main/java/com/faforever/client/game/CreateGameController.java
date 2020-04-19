@@ -21,6 +21,7 @@ import com.faforever.client.preferences.PreferenceUpdateListener;
 import com.faforever.client.preferences.PreferencesService;
 import com.faforever.client.remote.FafService;
 import com.faforever.client.reporting.ReportingService;
+import com.faforever.client.theme.UiService;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Strings;
 import javafx.application.Platform;
@@ -36,6 +37,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.MultipleSelectionModel;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
@@ -43,6 +45,7 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Pane;
+import javafx.scene.web.WebView;
 import javafx.util.Callback;
 import lombok.RequiredArgsConstructor;
 import org.apache.maven.artifact.versioning.ComparableVersion;
@@ -81,6 +84,7 @@ public class CreateGameController implements Controller<Pane> {
   private final ReportingService reportingService;
   private final FafService fafService;
   private final MapGeneratorService mapGeneratorService;
+  private final UiService uiService;
   public Label mapSizeLabel;
   public Label mapPlayersLabel;
   public Label mapDescriptionLabel;
@@ -141,7 +145,18 @@ public class CreateGameController implements Controller<Pane> {
       mapListView.scrollTo(newMapIndex);
     });
 
-    featuredModListView.setCellFactory(param -> new StringListCell<>(FeaturedMod::getDisplayName));
+    featuredModListView.setCellFactory(param -> {
+      StringListCell<FeaturedMod> featuredModStringListCell = new StringListCell<>(FeaturedMod::getDisplayName);
+      featuredModStringListCell.setTooltipFunction(featuredMod -> {
+        Tooltip tooltip = new Tooltip();
+        WebView webView = new WebView();
+        webView.getEngine().loadContent(featuredMod.getDescription());
+        uiService.registerWebView(webView);
+        tooltip.setGraphic(webView);
+        return tooltip;
+      });
+      return featuredModStringListCell;
+    });
 
     JavaFxUtil.makeNumericTextField(minRankingTextField, MAX_RATING_LENGTH);
     JavaFxUtil.makeNumericTextField(maxRankingTextField, MAX_RATING_LENGTH);

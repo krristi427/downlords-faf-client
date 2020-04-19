@@ -4,9 +4,9 @@ import com.faforever.client.remote.domain.MessageTarget;
 import com.faforever.client.remote.domain.SerializableMessage;
 import com.faforever.client.remote.domain.ServerMessage;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -14,13 +14,13 @@ import java.util.List;
  */
 public class GpgServerMessage implements SerializableMessage, ServerMessage {
 
-  private GpgServerMessageType command;
+  private final GpgServerMessageType command;
   private MessageTarget target;
-  private List<Object> args;
+  private final List<Object> args;
 
   protected GpgServerMessage(GpgServerMessageType command, int numberOfArgs) {
     this.command = command;
-    this.args = new ArrayList<>(Collections.nCopies(numberOfArgs, null));
+    this.args = new LinkedList<>(Collections.nCopies(numberOfArgs, null));
   }
 
   protected void setValue(int index, Object value) {
