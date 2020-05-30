@@ -75,6 +75,9 @@
                                        GridPane.rowIndex="6"/>
                                 <JFXToggleButton fx:id="advancedIceLogToggleButton" GridPane.columnIndex="1"
                                                  GridPane.rowIndex="6"/>
+                                <Label styleClass="h3" text="%settings.general.cacheLifeTime" GridPane.rowIndex="7"/>
+                                <JFXTextField fx:id="cacheLifeTimeTextField" maxWidth="1.7976931348623157E308"
+                                              GridPane.columnIndex="1" GridPane.rowIndex="7"/>
                             </children>
                         </GridPane>
                     </content>

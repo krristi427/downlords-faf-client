@@ -78,8 +78,10 @@ public class PreferencesService implements InitializingBean {
   private static final String REPLAYS_SUB_FOLDER = "replays";
   private static final String CORRUPTED_REPLAYS_SUB_FOLDER = "corrupt";
   private static final String CACHE_SUB_FOLDER = "cache";
+  private static final String FEATURED_MOD_CACHE_SUB_FOLDER = "featured_mod";
   private static final String CACHE_STYLESHEETS_SUB_FOLDER = Paths.get(CACHE_SUB_FOLDER, "stylesheets").toString();
   private static final Path CACHE_DIRECTORY;
+  private static final Path FEATURED_MOD_CACHE_PATH;
 
   static {
     if (org.bridj.Platform.isWindows()) {
@@ -88,6 +90,7 @@ public class PreferencesService implements InitializingBean {
       FAF_DATA_DIRECTORY = Paths.get(System.getProperty("user.home")).resolve(USER_HOME_SUB_FOLDER);
     }
     CACHE_DIRECTORY = FAF_DATA_DIRECTORY.resolve(CACHE_SUB_FOLDER);
+    FEATURED_MOD_CACHE_PATH = CACHE_DIRECTORY.resolve(FEATURED_MOD_CACHE_SUB_FOLDER);
 
     System.setProperty("logging.file", PreferencesService.FAF_DATA_DIRECTORY
         .resolve("logs")
@@ -336,6 +339,10 @@ public class PreferencesService implements InitializingBean {
 
   public Path getCacheDirectory() {
     return CACHE_DIRECTORY;
+  }
+
+  public Path getFeaturedModCachePath() {
+    return FEATURED_MOD_CACHE_PATH;
   }
 
   public Path getFafLogDirectory() {
