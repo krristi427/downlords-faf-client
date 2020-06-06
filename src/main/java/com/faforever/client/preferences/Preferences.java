@@ -54,7 +54,7 @@ public class Preferences {
   private final BooleanProperty disallowJoinsViaDiscord;
   private final BooleanProperty showGameDetailsSidePane;
   private final BooleanProperty advancedIceLogEnabled;
-  private final IntegerProperty cacheLifeTime;
+  private final IntegerProperty cacheLifeTimeInDays;
 
   public Preferences() {
     gameTileSortingOrder = new SimpleObjectProperty<>(TilesSortingOrder.PLAYER_DES);
@@ -82,7 +82,7 @@ public class Preferences {
     showGameDetailsSidePane = new SimpleBooleanProperty(false);
     advancedIceLogEnabled = new SimpleBooleanProperty(false);
     prereleaseCheckEnabled = new SimpleBooleanProperty(false);
-    cacheLifeTime = new SimpleIntegerProperty(30);
+    cacheLifeTimeInDays = new SimpleIntegerProperty(30);
   }
 
   public VaultPrefs getVaultPrefs() {
@@ -282,16 +282,16 @@ public class Preferences {
     }
   }
 
-  public int getCacheLifeTime() {
-    return cacheLifeTime.get();
+  public int getCacheLifeTimeInDays() {
+    return cacheLifeTimeInDays.get();
   }
 
-  public void setCacheLifeTime(int cacheLifeTime) {
-    this.cacheLifeTime.set(cacheLifeTime);
+  public void setCacheLifeTimeInDays(int cacheLifeTimeInDays) {
+    this.cacheLifeTimeInDays.set(cacheLifeTimeInDays);
   }
 
-  public IntegerProperty cacheLifeTimeProperty() {
-    return cacheLifeTime;
+  public IntegerProperty cacheLifeTimeInDaysProperty() {
+    return cacheLifeTimeInDays;
   }
 
 }
